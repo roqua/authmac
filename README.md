@@ -1,5 +1,7 @@
 # Authmac
 
+[![Build Status](https://travis-ci.org/roqua/authmac.png)](https://travis-ci.org/roqua/authmac)
+
 TODO: Write a gem description
 
 ## Installation
