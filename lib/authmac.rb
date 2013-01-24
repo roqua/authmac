@@ -11,7 +11,7 @@ module Authmac
       @timestamp_checker = timestamp_checker
     end
 
-    def validate(params)
+    def validate!(params)
       hash, hmac = split_params(params)
       raise HmacError      unless @hmac_checker.validate(hash, hmac)
       raise TimestampError unless @timestamp_checker.validate(params[:timestamp])
