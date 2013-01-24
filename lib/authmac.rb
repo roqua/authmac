@@ -17,6 +17,12 @@ module Authmac
       true
     end
 
+    def validate(params)
+      validate!(params)
+    rescue HmacError, TimestampError
+      false
+    end
+
     private
 
     def validate_hmac!(params)

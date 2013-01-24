@@ -30,5 +30,23 @@ module Authmac
         expect { auth.validate!({}) }.to raise_error(TimestampError)
       end
     end
+
+    describe '#validate' do
+      let(:params) { Hash.new }
+
+      it 'returns true if everything is ok' do
+        auth.validate(params).should be_true
+      end
+
+      it 'returns false if hmac is incorrect' do
+        hmac_checker.stub(validate: false)
+        auth.validate(params).should be_false
+      end
+
+      it 'returns false if timestamp is incorrect' do
+        timestamp_checker.stub(validate: false)
+        auth.validate(params).should be_false
+      end
+    end
   end
 end
