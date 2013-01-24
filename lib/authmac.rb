@@ -3,9 +3,10 @@ require "authmac/version"
 
 module Authmac
   class Authenticator
-    def initialize(secret, digest_function = "sha1")
+    def initialize(secret, parameter_separator = '|', digest_function = "sha1")
       @secret = secret
       @digest = digest_function
+      @separator = parameter_separator
     end
 
     def validate(hash, given_hmac)
@@ -23,7 +24,7 @@ module Authmac
     end
 
     def message_string(hash)
-      hash_values_sorted_by_key(hash).join('|')
+      hash_values_sorted_by_key(hash).join(@separator)
     end
 
     def hash_values_sorted_by_key(hash)

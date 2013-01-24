@@ -2,7 +2,7 @@ require 'authmac'
 
 module Authmac
   describe Authenticator do
-    let(:authenticator) { Authenticator.new("very secret key", "sha1") }
+    let(:authenticator) { Authenticator.new("very secret key", "|", "sha1") }
 
     context 'for an empty hash' do
       let(:hash) { Hash.new }
