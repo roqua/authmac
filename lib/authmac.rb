@@ -2,7 +2,7 @@ require 'openssl'
 require "authmac/version"
 
 module Authmac
-  class Authenticator
+  class HmacChecker
     def initialize(secret, parameter_separator = '|', digest_function = "sha1")
       @secret = secret
       @digest = digest_function
