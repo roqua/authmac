@@ -1,6 +1,7 @@
 # Authmac
 
 [![Build Status](https://travis-ci.org/roqua/authmac.png)](https://travis-ci.org/roqua/authmac)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/roqua/authmac)
 
 TODO: Write a gem description
 
