@@ -5,17 +5,7 @@ require 'authmac'
 set :app_file, __FILE__
 
 get '/' do
-  <<-END
-    <!DOCTYPE html>
-    <title>HMAC Generator</title>
-    <style>body { font-size: 1.2em; }</style>
-    <form method="post" action="/sign">
-      Professional ID: <input type="text" name="userid" />   <br/>
-      Patient ID:      <input type="text" name="clientid" /> <br/>
-
-      <input type="submit" value="Generate URL" />
-    </form>
-  END
+  erb :form
 end
 
 post '/sign' do
