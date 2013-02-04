@@ -9,17 +9,17 @@ module Authmac
     end
 
     def validate(hash, given_hmac)
-      calculate_hmac(hash) == given_hmac
+      sign(hash) == given_hmac
+    end
+
+    def sign(hash)
+      OpenSSL::HMAC.hexdigest(digester, @secret, message_string(hash))
     end
 
     private
 
     def digester
       OpenSSL::Digest::Digest.new(@digest)
-    end
-
-    def calculate_hmac(hash)
-      OpenSSL::HMAC.hexdigest(digester, @secret, message_string(hash))
     end
 
     def message_string(hash)
