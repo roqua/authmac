@@ -9,7 +9,7 @@ get '/' do
 end
 
 post '/sign' do
-  @checker = Authmac::HmacChecker.new("very_secret", 'sha256')
+  @checker = Authmac::HmacChecker.new("very_secret", '|', 'sha256')
   @params_with_timestamp = params.merge('timestamp' => Time.now.to_i)
   @hmac    = @checker.sign(@params_with_timestamp)
   @params_with_hmac      = @params_with_timestamp.merge('hmac' => @hmac)
@@ -19,7 +19,7 @@ post '/sign' do
 end
 
 get '/auth' do
-  hmac_checker      = Authmac::HmacChecker.new("very_secret", 'sha256')
+  hmac_checker      = Authmac::HmacChecker.new("very_secret", '|', 'sha256')
   timestamp_checker = Authmac::TimestampChecker.new(30, 10)
   authenticator     = Authmac::Authenticator.new(hmac_checker, timestamp_checker)
   @validation       = authenticator.validate(params)
