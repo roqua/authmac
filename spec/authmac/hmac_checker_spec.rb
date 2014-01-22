@@ -9,33 +9,33 @@ module Authmac
         let(:hash) { Hash.new }
 
         it 'succeeds with the correct hmac' do
-          checker.validate(hash, hmacify('')).should be_true
+          expect(checker.validate(hash, hmacify(''))).to be_truthy
         end
 
         it 'fails with an incorrect hmac' do
-          checker.validate(hash, "wrong").should be_false
+          expect(checker.validate(hash, "wrong")).to be_falsey
         end
       end
 
       context 'for a hash with a single parameter' do
         it 'succeeds with the correct hmac' do
-          checker.validate({single: 'parameter'}, hmacify("parameter")).should be_true
+          expect(checker.validate({single: 'parameter'}, hmacify("parameter"))).to be_truthy
         end
 
         it 'fails with incorrect hmac' do
-          checker.validate({single: 'parameter'}, 'wrong').should be_false
+          expect(checker.validate({single: 'parameter'}, 'wrong')).to be_falsey
         end
       end
 
       context 'for a hash with multiple parameters' do
         it 'succeeds with correct hmac' do
-          checker.validate({first: 'parameter', second: 'another'},
-                          hmacify('parameter|another')).should be_true
+          expect(checker.validate({first: 'parameter', second: 'another'},
+                                  hmacify('parameter|another'))).to be_truthy
         end
 
         it 'sorts hash values based on their keys' do
-          checker.validate({second: 'another', first: 'parameter'},
-                          hmacify('parameter|another')).should be_true
+          expect(checker.validate({second: 'another', first: 'parameter'},
+                                  hmacify('parameter|another'))).to be_truthy
 
         end
       end
@@ -43,7 +43,7 @@ module Authmac
 
     describe '#calculate_hmac' do
       it 'generates hmac' do
-        checker.sign(second: 'another', first: 'parameter').should == hmacify('parameter|another')
+        expect(checker.sign(second: 'another', first: 'parameter')).to eq(hmacify('parameter|another'))
       end
     end
 
