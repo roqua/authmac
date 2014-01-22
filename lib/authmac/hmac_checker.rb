@@ -19,7 +19,7 @@ module Authmac
     private
 
     def digester
-      OpenSSL::Digest::Digest.new(@digest)
+      OpenSSL::Digest.new(@digest)
     end
 
     def message_string(hash)

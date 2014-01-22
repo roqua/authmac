@@ -48,7 +48,7 @@ module Authmac
     end
 
     def hmacify(string, method='sha1')
-      digester = OpenSSL::Digest::Digest.new(method)
+      digester = OpenSSL::Digest.new(method)
       OpenSSL::HMAC.hexdigest(digester, "very secret key", string)
     end
   end
