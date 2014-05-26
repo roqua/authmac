@@ -3,8 +3,7 @@ require 'authmac/hmac_checker'
 require 'authmac/timestamp_checker'
 
 module Authmac
-  class HmacError < StandardError; end
-  class TimestampError < StandardError; end
+  class SecretError < StandardError; end
 
   class ValidationResult
     def initialize(options = {})

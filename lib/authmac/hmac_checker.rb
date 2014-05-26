@@ -6,6 +6,7 @@ module Authmac
       @secret = secret
       @digest = digest_function
       @separator = parameter_separator
+      fail Authmac::SecretError, 'secret too short, see rfc2104' unless @secret.bytes.size >= digester.digest_length
     end
 
     def validate(hash, given_hmac)

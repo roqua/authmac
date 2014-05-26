@@ -2,9 +2,16 @@ require 'authmac/hmac_checker'
 
 module Authmac
   describe HmacChecker do
-    let(:checker) { HmacChecker.new("very secret key", "|", "sha1") }
+    let(:checker) { HmacChecker.new('very secret random key of sufficient size', '|', 'sha1') }
+
+    it 'raises an error for a secret shorter than the hmac output' do
+      expect {
+        HmacChecker.new('way too short key', '|', 'sha1')
+      }.to raise_error SecretError, 'secret too short, see rfc2104'
+    end
 
     describe '#validate' do
+
       context 'for an empty hash' do
         let(:hash) { Hash.new }
 
@@ -13,13 +20,13 @@ module Authmac
         end
 
         it 'fails with an incorrect hmac' do
-          expect(checker.validate(hash, "wrong")).to be_falsey
+          expect(checker.validate(hash, 'wrong')).to be_falsey
         end
       end
 
       context 'for a hash with a single parameter' do
         it 'succeeds with the correct hmac' do
-          expect(checker.validate({single: 'parameter'}, hmacify("parameter"))).to be_truthy
+          expect(checker.validate({single: 'parameter'}, hmacify('parameter'))).to be_truthy
         end
 
         it 'fails with incorrect hmac' do
@@ -36,7 +43,6 @@ module Authmac
         it 'sorts hash values based on their keys' do
           expect(checker.validate({second: 'another', first: 'parameter'},
                                   hmacify('parameter|another'))).to be_truthy
-
         end
       end
     end
@@ -49,7 +55,7 @@ module Authmac
 
     def hmacify(string, method='sha1')
       digester = OpenSSL::Digest.new(method)
-      OpenSSL::HMAC.hexdigest(digester, "very secret key", string)
+      OpenSSL::HMAC.hexdigest(digester, 'very secret random key of sufficient size', string)
     end
   end
 end
