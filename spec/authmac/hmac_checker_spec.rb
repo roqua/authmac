@@ -4,11 +4,13 @@ module Authmac
   describe HmacChecker do
     let(:checker) { HmacChecker.new('very secret random key of sufficient size', '|', 'sha1') }
 
+    it 'raises an error for a secret shorter than the hmac output' do
+      expect {
+        HmacChecker.new('way too short key', '|', 'sha1')
+      }.to raise_error SecretError, 'secret too short, see rfc2104'
+    end
+
     describe '#validate' do
-      it 'raises an error for a secret shorter than the hmac output' do
-        checker = HmacChecker.new('way too short key', '|', 'sha1')
-        expect { checker.validate({}, '') }.to raise_error SecretError, 'secret too short, see rfc2104'
-      end
 
       context 'for an empty hash' do
         let(:hash) { Hash.new }
