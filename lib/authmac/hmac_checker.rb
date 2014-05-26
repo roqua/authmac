@@ -2,11 +2,11 @@ require 'openssl'
 
 module Authmac
   class HmacChecker
-    def initialize(secret, parameter_separator = '|', digest_function = "sha1")
+    def initialize(secret, parameter_separator = '|', digest_function = 'sha1')
       @secret = secret
       @digest = digest_function
       @separator = parameter_separator
-      fail Authmac::SecretError, 'secret too short, see rfc2104' unless @secret.bytes.size >= digester.digest_length
+      fail Authmac::SecretError, 'secret too short, see rfc2104' unless @secret.bytes.size >= digester.digest_length * 2
     end
 
     def validate(hash, given_hmac)
