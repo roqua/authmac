@@ -14,7 +14,7 @@ module Authmac
         auth.validate(hash.merge(hmac: hmac))
       end
 
-      it 'raises HmacError if hmac is incorrect' do
+      it 'sets the hmac_failure flag when hmac is incorrect' do
         allow(hmac_checker).to receive(:validate).and_return(false)
         expect(auth.validate({}).hmac_failure?).to be_truthy
       end
@@ -25,11 +25,10 @@ module Authmac
         auth.validate({timestamp: timestamp.to_s})
       end
 
-      it 'raises TimestampError if timestamp is out of bounds' do
+      it 'sets the timestamp_failure flag when timestamp is out of bounds' do
         allow(timestamp_checker).to receive(:validate).and_return(false)
         expect(auth.validate({}).timestamp_failure?).to be_truthy
       end
     end
-
   end
 end
