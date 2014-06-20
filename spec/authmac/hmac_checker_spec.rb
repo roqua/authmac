@@ -52,6 +52,11 @@ module Authmac
         hash = {second: 'another', first: 'parameter'}
         expect(checker.with_signature(hash)).to eq(hash.merge(hmac: hmacify('parameter|another')))
       end
+
+      it 'allows overriding the key to place the hmac under' do
+        hash = {second: 'another', first: 'parameter'}
+        expect(checker.with_signature(hash, :sig)).to eq(hash.merge(sig: hmacify('parameter|another')))
+      end
     end
 
     describe '#calculate_hmac' do
