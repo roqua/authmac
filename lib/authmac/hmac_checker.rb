@@ -17,6 +17,10 @@ module Authmac
       OpenSSL::HMAC.hexdigest(digester, @secret, message_string(hash))
     end
 
+    def with_signature(hash, hmac_key = :hmac)
+      hash.merge({hmac_key => sign(hash)})
+    end
+
     private
 
     def digester

@@ -47,6 +47,13 @@ module Authmac
       end
     end
 
+    describe '#with_signature' do
+      it 'adds the hmac' do
+        hash = {second: 'another', first: 'parameter'}
+        expect(checker.with_signature(hash)).to eq(hash.merge(hmac: hmacify('parameter|another')))
+      end
+    end
+
     describe '#calculate_hmac' do
       it 'generates hmac' do
         expect(checker.sign(second: 'another', first: 'parameter')).to eq(hmacify('parameter|another'))
