@@ -6,18 +6,19 @@
 
 <p>These are the values we used to generate the hash:</p>
 <code><%= JSON.pretty_generate @params %></code>
+<p class="info">Removed blank params here, we won't send them to the provider, if we had, they should have been in the string_to_sign e.g. "1|2||4".</p>
 
 <p>Then we add the timestamp and other parameter we want:</p>
-<code><%= JSON.pretty_generate @params_to_sign %></code>
+<code>params = <%= JSON.pretty_generate @params_to_sign %></code>
 <p class="info">timestamp is the only key that is required. <br />
   version, nonce and consumer_key are app-specific and can be anything you want, just make sure you calculate the hmac over all the params you send.
  </p>
 
 <p>To calculate the HMAC, we sort the params by key alfabetically and join the values with a '|' in between:</p>
-<code><%= @checker.send(:message_string, @params_to_sign) %></code>
+<code>string_to_sign = <%= @checker.send(:message_string, @params_to_sign) %></code>
 
 <p>And use the configured secret for the HMAC generation:</p>
-<code><%= @secret %></code>
+<code>hmac_secret = '<%= @secret %>'</code>
 
 <p>Then we add the HMAC to the params:</p>
 <code># Authmac::HmacChecker.new(hmac_secret, '|', 'sha256').sign(params)

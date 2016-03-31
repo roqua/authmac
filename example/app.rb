@@ -13,9 +13,10 @@ get '/' do
 end
 
 post '/sign' do
+  @params = params.select { |_k, v| v != '' }
   @secret = hmac_secret
   @checker = Authmac::HmacChecker.new(hmac_secret, '|', 'sha256')
-  @params_to_sign = params.merge \
+  @params_to_sign = @params.merge \
     'timestamp'    => Time.now.to_i.to_s,
     'version'      => '3',
     'nonce'        => 'implementing_apps_should_store_this_to_prevent_replays',
