@@ -28,11 +28,17 @@ module Authmac
     end
 
     def message_string(hash)
-      hash_values_sorted_by_key(hash).join(@separator)
+      hash_values_sorted_by_key(hash).flatten.join(@separator)
     end
 
     def hash_values_sorted_by_key(hash)
-      hash.sort_by {|key, value| key }.map(&:last)
+      hash.sort_by {|key, value| key }.map do |_key, val|
+        if val.is_a? Hash
+          hash_values_sorted_by_key(val)
+        else
+          val
+        end
+      end
     end
   end
 end
