@@ -31,13 +31,15 @@ module Authmac
       hash_values_sorted_by_key(hash).flatten.join(@separator)
     end
 
-    def hash_values_sorted_by_key(hash)
-      hash.sort_by {|key, value| key }.map do |_key, val|
-        if val.is_a? Hash
-          hash_values_sorted_by_key(val)
-        else
-          val
-        end
+    def hash_values_sorted_by_key(params)
+      case params
+      when Hash
+        params.sort_by { |key, val| key }
+              .map { |key, val| hash_values_sorted_by_key(val) }
+      when Array
+        params.map { |val| hash_values_sorted_by_key(val) }
+      else
+        params
       end
     end
   end

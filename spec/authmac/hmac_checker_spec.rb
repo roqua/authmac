@@ -57,6 +57,18 @@ module Authmac
                                   hmacify('1|2|3|4'))).to be_truthy
         end
       end
+
+      context 'for a hash with nested hashes and arrays' do
+        it 'succeeds with correct hmac' do
+          expect(checker.validate({first: '1', second: {a: '2', b: ['3', '4']}, third: '5'},
+                                  hmacify('1|2|3|4|5'))).to be_truthy
+        end
+
+        it 'sorts hash values based on their keys' do
+          expect(checker.validate({first: '1', third: '6', second: {b: ['3', {c: '4', d: '5'}], a: '2'}},
+                                  hmacify('1|2|3|4|5|6'))).to be_truthy
+        end
+      end
     end
 
     describe '#with_signature' do

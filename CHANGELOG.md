@@ -1,3 +1,7 @@
+## Unpublished
+
+* Allow nested hashes/arrays to be signed.
+
 ## Version 1.0.4 / 2014-06-20
 
 * Added HmacChecker#with_signature which returns the given hash with the HMAC merged in.
