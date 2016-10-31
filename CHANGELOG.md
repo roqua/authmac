@@ -1,6 +1,7 @@
-## Unpublished
+## Unpublished Version 2.0.0
 
 * Allow nested hashes/arrays to be signed.
+* Add :json message_format to sign a sorted json string, instead of just values.
 
 ## Version 1.0.4 / 2014-06-20
 
