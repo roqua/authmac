@@ -1,5 +1,6 @@
-## Unpublished Version 2.0.0
+## Version 2.0.0 / 2016-11-08
 
+* BREAKING: keyword arguments for HmacChecker.new
 * Allow nested hashes/arrays to be signed.
 * Add :json message_format to sign a sorted json string, instead of just values.
 
