@@ -1,3 +1,7 @@
+## Version 2.0.1 / 2016-11-08
+
+added license to gemspec
+
 ## Version 2.0.0 / 2016-11-08
 
 * BREAKING: keyword arguments for HmacChecker.new

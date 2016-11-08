@@ -8,6 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = Authmac::VERSION
   gem.authors       = ["Marten Veldthuis"]
   gem.email         = ["marten@veldthuis.com"]
+  gem.licenses      = ['MIT']
   gem.description   = 'Single Sign-On implementation based on HMAC.'
   gem.summary       = 'Single Sign-On implementation based on HMAC.'
   gem.homepage      = ""
