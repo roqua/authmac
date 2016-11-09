@@ -1,3 +1,8 @@
+## Version 2.0.2 / 2016-11-09
+
+* json format: to_s all values.
+* Added minimum ruby version (2.0.0) to gemspec
+
 ## Version 2.0.1 / 2016-11-08
 
 * added license to gemspec

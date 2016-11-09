@@ -61,7 +61,7 @@ module Authmac
       when Array
         params.map { |val| params_sorted_by_key(val) }
       else
-        params
+        params.to_s
       end
     end
   end
