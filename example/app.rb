@@ -15,7 +15,7 @@ end
 post '/sign' do
   @params = params.select { |_k, v| v != '' }
   @secret = hmac_secret
-  @checker = Authmac::HmacChecker.new(hmac_secret, '|', 'sha256')
+  @checker = Authmac::HmacChecker.new(hmac_secret, parameter_separator: '|', digest_function: 'sha256')
   @params_to_sign = @params.merge \
     'timestamp'    => Time.now.to_i.to_s,
     'version'      => '3',
@@ -29,7 +29,7 @@ post '/sign' do
 end
 
 get '/auth' do
-  hmac_checker      = Authmac::HmacChecker.new(hmac_secret, '|', 'sha256')
+  hmac_checker      = Authmac::HmacChecker.new(hmac_secret, parameter_separator: '|', digest_function: 'sha256')
   timestamp_checker = Authmac::TimestampChecker.new(30, 10)
   authenticator     = Authmac::Authenticator.new(hmac_checker, timestamp_checker)
   @validation       = authenticator.validate(params)
